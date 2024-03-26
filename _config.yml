@@ -8,7 +8,7 @@
 
 # Basic Site Settings
 locale                   : "en-US"
-title                    : "Yuan Gao / Personal Page"
+title                    : "Yuan Gao"
 title_separator          : "-"
 name                     : &name "Yuan Gao"
 description              : &description "personal description"
@@ -23,7 +23,7 @@ author:
   # Biographic information
   avatar           : "profile.png"
   name             : "Yuan Gao"
-  pronouns         : "He/His"# example: "she/her"  
+  pronouns         : #"He/His"# example: "she/her"  
   bio              : "Short biography for the left-hand sidebar"
   location         : "Beijing, China"
   employer         : "Peking University"
