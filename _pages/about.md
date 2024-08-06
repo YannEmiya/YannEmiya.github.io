@@ -9,7 +9,7 @@ redirect_from:
 ![Weiming Lake](../images/webpage.jpg)
 
 
-I am currently a postdoctoral researcher in Guanghua School of Management at Peking University. I got my Ph.D. degree in Statistics from School of Statistics, East China Normal University in 2023, under the joint supervision of Prof. Riquan Zhang and Prof. Hansheng Wang. My research interests are mainly on large-scale statistial analysis and statistical machine learning. My Chinese name is **高原**.
+I am currently a postdoctoral researcher in Guanghua School of Management at Peking University. I got my Ph.D. degree in Statistics from School of Statistics, East China Normal University in 2023, under the joint supervision of Prof. [Riquan Zhang](https://www.suibe.edu.cn/txxy/2022/1031/c5782a154108/page.htm) and Prof. [Hansheng Wang](https://sites.google.com/view/hansheng). My research interests are mainly on large-scale statistial analysis and statistical machine learning. My Chinese name is **高原**.
 
 
 # Education
