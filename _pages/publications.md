@@ -15,7 +15,7 @@ author_profile: true
 
 - Lin, Z., **Gao, Y.**, Wang, F.\*, & Wang, H. (2024). [Testing sufficiency for transfer learning](https://doi.org/10.1016/j.csda.2024.108075). *Computational Statistics & Data Analysis*, 108075. [[arXiv Preprint](https://arxiv.org/abs/2304.05636)]
 
-- Li, X., **Gao, Y.\***, Chang, H., Huang, D., Ma, Y., Pan, R., Qi, H., Wang, F., Wu, S., Xu, K., Zhou, J., Zhu, X., Zhu, Y., & Wang, H. (2024). [A selective review on statistical methods for massive data computation: distributed computing, subsampling, and minibatch techniques](https://doi.org/10.1080/24754269.2024.2343151). *Statistical Theory and Related Fields*, online. [[arXiv Preprint](https://arxiv.org/abs/2403.11163)]
+- Li, X., **Gao, Y.\***, Chang, H., Huang, D., Ma, Y., Pan, R., Qi, H., Wang, F., Wu, S., Xu, K., Zhou, J., Zhu, X., Zhu, Y., & Wang, H. (2024). [A selective review on statistical methods for massive data computation: distributed computing, subsampling, and minibatch techniques](https://doi.org/10.1080/24754269.2024.2343151). *Statistical Theory and Related Fields*, 8(3), 163-185. [[arXiv Preprint](https://arxiv.org/abs/2403.11163)]
 
 - Shi, J., Wang, F.\*, **Gao, Y.**, Song, X., & Wang, H. (2024). [Mixture conditional regression with ultrahigh dimensional text data for estimating extralegal factor effects](https://doi.org/10.1214/24-AOAS1893). *The Annals of Applied Statistics*, 18(3), 2532-2550. [[arXiv Preprint](https://arxiv.org/abs/2311.07906)]
 
