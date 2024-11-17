@@ -19,7 +19,7 @@ author_profile: true
 
 - Shi, J., Wang, F.\*, **Gao, Y.**, Song, X., & Wang, H. (2024). [Mixture conditional regression with ultrahigh dimensional text data for estimating extralegal factor effects](https://doi.org/10.1214/24-AOAS1893). *The Annals of Applied Statistics*, 18(3), 2532-2550. [[arXiv Preprint](https://arxiv.org/abs/2311.07906)]
 
-- Ren, Y., Li, Z., Zhu, X.\*, **Gao, Y.**, & Wang, H. (2024). [Distributed estimation and inference for spatial autoregression model with large scale networks](https://doi.org/10.1016/j.jeconom.2023.105629). *Journal of Econometrics*, 238(2), 105629. [arXiv Preprint](https://arxiv.org/abs/2210.16634)
+- Ren, Y., Li, Z., Zhu, X.\*, **Gao, Y.**, & Wang, H. (2024). [Distributed estimation and inference for spatial autoregression model with large scale networks](https://doi.org/10.1016/j.jeconom.2023.105629). *Journal of Econometrics*, 238(2), 105629. [[arXiv Preprint](https://arxiv.org/abs/2210.16634)]
 
 - **Gao, Y.**, Zhu, X.\*, Qi, H., Li, G., Zhang, R., & Wang, H. (2023). [An asymptotic analysis of random partition based minibatch momentum methods for linear regression models](https://www.tandfonline.com/doi/full/10.1080/10618600.2022.2143786). *Journal of Computational and Graphical Statistics*, 32(3), 1083-1096. [[arXiv Preprint](https://arxiv.org/abs/2111.01507)]
 
