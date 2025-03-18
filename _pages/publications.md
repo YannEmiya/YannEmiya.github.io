@@ -14,7 +14,7 @@ author_profile: true
 
 - **Gao, Y.**, Pan, R.\*, Li, F., Zhang, R., & Wang, H. (2024). [Grid point approximation for distributed nonparametric smoothing and prediction](https://doi.org/10.1080/10618600.2024.2409817). *Journal of Computational and Graphical Statistics*, online [[arXiv Preprint](https://doi.org/10.48550/arXiv.2409.14079)]
 
-- Qi, H., & **Gao\***, Y. (2024). [Communication‐efficient distributed gradient descent via random projection](https://doi.org/10.1002/sta4.70030). *Stat*, 13(4), e70030.
+- Qi, H., & **Gao, Y.\*** (2024). [Communication‐efficient distributed gradient descent via random projection](https://doi.org/10.1002/sta4.70030). *Stat*, 13(4), e70030.
 
 - Lin, Z., **Gao, Y.**, Wang, F.\*, & Wang, H. (2024). [Testing sufficiency for transfer learning](https://doi.org/10.1016/j.csda.2024.108075). *Computational Statistics & Data Analysis*, 108075. [[arXiv Preprint](https://arxiv.org/abs/2304.05636)]
 
