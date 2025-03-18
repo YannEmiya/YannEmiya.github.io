@@ -9,9 +9,12 @@ author_profile: true
   <div class="wordwrap">You can also find my articles on <a href="{{site.author.googlescholar}}">my Google Scholar profile</a>.</div>
 {% endif %}
 
-- **Gao, Y.**, Zhang, Z., Cai, Z., Zhu, X.\*, Zou, T., & Wang, H. (2024). [Penalized sparse covariance regression with high dimensional covariates](https://doi.org/10.1080/07350015.2024.2415109). *Journal of Business & Economic Statistics*, just-accepted. [[arXiv Preprint](https://arxiv.org/abs/2410.04028)]
 
-- **Gao, Y.**, Pan, R.\*, Li, F., Zhang, R., & Wang, H. (2024). [Grid point approximation for distributed nonparametric smoothing and prediction](https://doi.org/10.1080/10618600.2024.2409817). *Journal of Computational and Graphical Statistics*, just-accepted. [[arXiv Preprint](https://doi.org/10.48550/arXiv.2409.14079)]
+- **Gao, Y.**, Zhang, Z., Cai, Z., Zhu, X.\*, Zou, T., & Wang, H. (2024). [Penalized sparse covariance regression with high dimensional covariates](https://doi.org/10.1080/07350015.2024.2415109). *Journal of Business & Economic Statistics*, online [[arXiv Preprint](https://arxiv.org/abs/2410.04028)]
+
+- **Gao, Y.**, Pan, R.\*, Li, F., Zhang, R., & Wang, H. (2024). [Grid point approximation for distributed nonparametric smoothing and prediction](https://doi.org/10.1080/10618600.2024.2409817). *Journal of Computational and Graphical Statistics*, online [[arXiv Preprint](https://doi.org/10.48550/arXiv.2409.14079)]
+
+- Qi, H., & **Gao\***, Y. (2024). [Communication‐efficient distributed gradient descent via random projection](https://doi.org/10.1002/sta4.70030). *Stat*, 13(4), e70030.
 
 - Lin, Z., **Gao, Y.**, Wang, F.\*, & Wang, H. (2024). [Testing sufficiency for transfer learning](https://doi.org/10.1016/j.csda.2024.108075). *Computational Statistics & Data Analysis*, 108075. [[arXiv Preprint](https://arxiv.org/abs/2304.05636)]
 
