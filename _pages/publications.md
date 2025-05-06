@@ -14,9 +14,10 @@ author_profile: true
 
 - **Gao, Y.**, Pan, R.\*, Li, F., Zhang, R., & Wang, H. (2024). [Grid point approximation for distributed nonparametric smoothing and prediction](https://doi.org/10.1080/10618600.2024.2409817). *Journal of Computational and Graphical Statistics*, online [[arXiv Preprint](https://doi.org/10.48550/arXiv.2409.14079)]
 
-- Qi, H., & **Gao, Y.\*** (2024). [Communication‐efficient distributed gradient descent via random projection](https://doi.org/10.1002/sta4.70030). *Stat*, 13(4), e70030.
+- Lin, Z., **Gao, Y.**, Wang, F.\*, & Wang, H. (2025). [Testing sufficiency for transfer learning](https://doi.org/10.1016/j.csda.2024.108075). *Computational Statistics & Data Analysis*, 108075. [[arXiv Preprint](https://arxiv.org/abs/2304.05636)]
 
-- Lin, Z., **Gao, Y.**, Wang, F.\*, & Wang, H. (2024). [Testing sufficiency for transfer learning](https://doi.org/10.1016/j.csda.2024.108075). *Computational Statistics & Data Analysis*, 108075. [[arXiv Preprint](https://arxiv.org/abs/2304.05636)]
+
+- Qi, H., & **Gao, Y.\*** (2024). [Communication‐efficient distributed gradient descent via random projection](https://doi.org/10.1002/sta4.70030). *Stat*, 13(4), e70030.
 
 - Li, X., **Gao, Y.\***, Chang, H., Huang, D., Ma, Y., Pan, R., Qi, H., Wang, F., Wu, S., Xu, K., Zhou, J., Zhu, X., Zhu, Y., & Wang, H. (2024). [A selective review on statistical methods for massive data computation: distributed computing, subsampling, and minibatch techniques](https://doi.org/10.1080/24754269.2024.2343151). *Statistical Theory and Related Fields*, 8(3), 163-185. [[arXiv Preprint](https://arxiv.org/abs/2403.11163)]
 
