@@ -10,9 +10,10 @@ author_profile: true
 {% endif %}
 
 
-- **Gao, Y.**, Zhang, Z., Cai, Z., Zhu, X.\*, Zou, T., & Wang, H. (2024). [Penalized sparse covariance regression with high dimensional covariates](https://doi.org/10.1080/07350015.2024.2415109). *Journal of Business & Economic Statistics*, online [[arXiv Preprint](https://arxiv.org/abs/2410.04028)]
-
 - **Gao, Y.**, Pan, R.\*, Li, F., Zhang, R., & Wang, H. (2024). [Grid point approximation for distributed nonparametric smoothing and prediction](https://doi.org/10.1080/10618600.2024.2409817). *Journal of Computational and Graphical Statistics*, online [[arXiv Preprint](https://doi.org/10.48550/arXiv.2409.14079)]
+
+- **Gao, Y.**, Zhang, Z., Cai, Z., Zhu, X.\*, Zou, T., & Wang, H. (2025). [Penalized sparse covariance regression with high dimensional covariates](https://doi.org/10.1080/07350015.2024.2415109). *Journal of Business & Economic Statistics*, 43(3), 615–626. [[arXiv Preprint](https://arxiv.org/abs/2410.04028)]
+
 
 - Lin, Z., **Gao, Y.**, Wang, F.\*, & Wang, H. (2025). [Testing sufficiency for transfer learning](https://doi.org/10.1016/j.csda.2024.108075). *Computational Statistics & Data Analysis*, 108075. [[arXiv Preprint](https://arxiv.org/abs/2304.05636)]
 
