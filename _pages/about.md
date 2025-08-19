@@ -6,10 +6,10 @@ redirect_from:
   - /about/
   - /about.html
 ---
-![Weiming Lake](../images/webpage.jpg)
+![Weiming Lake at Night](../images/webpage.jpg)
 
+I am currently a Lecturer at the School of Statistics and Data Science at the Shanghai University of International Business and Economics. Previously, I was a postdoctoral researcher at the Guanghua School of Management at Peking University. I earned my Ph.D. in Statistics from East China Normal University in 2023. My research focuses on large-scale statistical analysis and statistical machine learning. My Chinese name is **高原** (Gao Yuan), which translates to "plateau" in English.
 
-I am currently a postdoctoral researcher in Guanghua School of Management at Peking University. I got my Ph.D. degree in Statistics from School of Statistics, East China Normal University in 2023. My research interests are mainly in large-scale statistical analysis and statistical machine learning. My Chinese name is **高原**, which means "plateau" in English.
 
 
 # Education
