@@ -24,9 +24,9 @@ author:
   avatar           : "profile.jpeg"
   name             : "Yuan Gao (高原)"
   pronouns         : #"He/His"# example: "she/her"  
-  bio              : "Postdoctoral Researcher"
-  location         : "Beijing, China"
-  employer         : "Peking University"
+  bio              : "Lecturer"
+  location         : "Shanghai, China"
+  employer         : "Shanghai University of International Business and Economics"
   uri              : # URL
   email            : "ygao_stat@outlook.com" 
 
