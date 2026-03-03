@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>二维码生成器（纯前端 / UTF-8 / 支持日语等字符）</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Noto Sans CJK SC", sans-serif;
+    }
+    .wrap {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 18px;
+      display: grid;
+      gap: 16px;
+      grid-template-columns: 1.25fr 0.75fr;
+      align-items: start;
+    }
+    @media (max-width: 920px) { .wrap { grid-template-columns: 1fr; } }
+
+    .card {
+      border: 1px solid rgba(127,127,127,.25);
+      border-radius: 14px;
+      padding: 14px;
+      background: rgba(127,127,127,.06);
+    }
+    h1 { font-size: 18px; margin: 0 0 10px; }
+    .sub { font-size: 12px; opacity: .8; margin-top: -4px; margin-bottom: 12px; line-height: 1.5; }
+
+    label { display: block; font-size: 13px; opacity: .9; margin: 10px 0 6px; }
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      resize: vertical;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(127,127,127,.35);
+      background: transparent;
+      box-sizing: border-box;
+    }
+    input, select, button { font: inherit; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    @media (max-width: 560px) { .row { grid-template-columns: 1fr; } }
+    .ctrl {
+      width: 100%;
+      padding: 9px 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(127,127,127,.35);
+      background: transparent;
+      box-sizing: border-box;
+    }
+
+    .btns { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+    button {
+      cursor: pointer;
+      padding: 9px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(127,127,127,.35);
+      background: rgba(127,127,127,.10);
+    }
+    button:hover { background: rgba(127,127,127,.18); }
+    button:disabled { opacity: .45; cursor: not-allowed; }
+
+    .preview {
+      display: grid;
+      gap: 10px;
+      justify-items: center;
+      align-content: start;
+    }
+
+    .frame{
+      width: min(360px, 92vw);
+      border-radius: 14px;
+      background: #fff;
+      border: 1px solid rgba(127,127,127,.18);
+      padding: 12px;              /* 给二维码留“画框内边距”，更不容易贴边 */
+      box-sizing: border-box;
+    }
+
+    canvas{
+      width: 100% !important;
+      height: auto !important;    /* ✅ 让 canvas 按宽度等比缩放，不会被裁 */
+      display: block;
+      background: #fff;
+    }
+
+    #svgBox svg{
+      width: 100% !important;
+      height: auto !important;    /* ✅ SVG 也等比缩放 */
+      display: block;
+      background: #fff;
+    }
+
+    .meta { font-size: 12px; opacity: .88; line-height: 1.55; width: 100%; }
+    .status { margin-top: 10px; padding: 10px; border-radius: 12px; border: 1px solid rgba(127,127,127,.25); background: rgba(127,127,127,.06); }
+    .warn { color: #b45309; }
+    .ok { color: #15803d; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+
+    .chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+    .chip {
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(127,127,127,.30);
+      background: rgba(127,127,127,.08);
+      cursor: pointer;
+      user-select: none;
+    }
+    .chip:hover { background: rgba(127,127,127,.14); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>二维码生成器（纯前端 / UTF-8 / 支持日语等字符）</h1>
+      <div class="sub">
+        本工具完全在浏览器本地运行，不会上传你的内容。<br>
+        如果你要“随便发给任何人都能用（离线也行）”：把 <span class="mono">qrcode.min.js</span> 放到本 HTML 同目录即可（见页面底部说明）。
+      </div>
+
+      <label for="text">内容（文本 / URL / 日语 / Emoji 都可以）</label>
+      <textarea id="text" placeholder="例：こんにちは、世界！ / https://example.com / 支持中文・日本語・😊"></textarea>
+
+      <div class="chips">
+        <div class="chip" data-sample="https://example.com">示例：URL</div>
+        <div class="chip" data-sample="こんにちは、世界！">示例：日语</div>
+        <div class="chip" data-sample="中文 + 日本語 + Emoji 😊🚀">示例：混合字符</div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label for="ecc">纠错等级（越高越抗损坏，但容量更小）</label>
+          <select id="ecc" class="ctrl">
+            <option value="M" selected>M（推荐）</option>
+            <option value="L">L（容量最大）</option>
+            <option value="Q">Q（更稳）</option>
+            <option value="H">H（最稳）</option>
+          </select>
+        </div>
+        <div>
+          <label for="size">尺寸（px）</label>
+          <input id="size" class="ctrl" type="number" min="128" max="2048" step="16" value="512" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label for="margin">留白（margin）</label>
+          <input id="margin" class="ctrl" type="number" min="0" max="16" step="1" value="2" />
+        </div>
+        <div>
+          <label for="mode">输出</label>
+          <select id="mode" class="ctrl">
+            <option value="canvas" selected>PNG（Canvas）</option>
+            <option value="svg">SVG（矢量）</option>
+            <option value="both">两者都要</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label for="dark">前景色</label>
+          <input id="dark" class="ctrl" type="color" value="#111827" />
+        </div>
+        <div>
+          <label for="light">背景色</label>
+          <input id="light" class="ctrl" type="color" value="#ffffff" />
+        </div>
+      </div>
+
+      <div class="btns">
+        <button id="btnGenerate" type="button">生成 / 更新</button>
+        <button id="btnDownloadPng" type="button" disabled>下载 PNG</button>
+        <button id="btnDownloadSvg" type="button" disabled>下载 SVG</button>
+        <button id="btnCopyImg" type="button" disabled>复制图片到剪贴板</button>
+        <button id="btnCopyLink" type="button">复制分享链接</button>
+        <button id="btnShare" type="button" disabled>系统分享</button>
+        <button id="btnClear" type="button">清空</button>
+      </div>
+
+      <div id="status" class="status meta">正在初始化…</div>
+
+      <div class="meta" style="margin-top:10px;">
+        <div><b>离线使用（强烈推荐）</b></div>
+        <div>把二维码库文件命名为 <span class="mono">qrcode.min.js</span> 放在本 HTML 同目录。页面会优先加载它。</div>
+        <div class="mono" style="margin-top:6px;">
+          你可以在浏览器打开并另存为：<br>
+          https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.1/qrcode.min.js
+        </div>
+      </div>
+    </div>
+
+    <div class="card preview">
+      <div class="frame" id="frame">
+        <div id="placeholder" class="meta" style="text-align:center; opacity:.75; padding: 10px;">
+          请输入内容并点击“生成 / 更新”<br>
+          （库加载成功后会自动可用）
+        </div>
+        <canvas id="canvas" width="512" height="512" style="display:none;"></canvas>
+        <div id="svgBox" style="display:none;"></div>
+      </div>
+
+      <div class="meta" id="info"></div>
+      <div class="meta" id="env"></div>
+    </div>
+  </div>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    const elText = $("text");
+    const elEcc = $("ecc");
+    const elSize = $("size");
+    const elMargin = $("margin");
+    const elDark = $("dark");
+    const elLight = $("light");
+    const elMode = $("mode");
+
+    const canvas = $("canvas");
+    const svgBox = $("svgBox");
+    const placeholder = $("placeholder");
+    const status = $("status");
+    const info = $("info");
+    const env = $("env");
+
+    const btnGenerate = $("btnGenerate");
+    const btnDownloadPng = $("btnDownloadPng");
+    const btnDownloadSvg = $("btnDownloadSvg");
+    const btnCopyImg = $("btnCopyImg");
+    const btnCopyLink = $("btnCopyLink");
+    const btnShare = $("btnShare");
+    const btnClear = $("btnClear");
+
+    let lastSvgText = "";
+    let debounceTimer = null;
+    let qrLibReady = false;
+    let qrLibSource = "";
+
+    function setStatus(msg, cls = "") {
+      status.className = "status meta " + cls;
+      status.textContent = msg;
+    }
+
+    function setActionButtonsEnabled(on) {
+      // 这些依赖“已生成二维码”
+      [btnDownloadPng, btnDownloadSvg, btnCopyImg, btnShare].forEach(b => b.disabled = !on);
+    }
+
+    function clampInt(v, min, max, fallback) {
+      const n = Number.parseInt(v, 10);
+      if (!Number.isFinite(n)) return fallback;
+      return Math.min(max, Math.max(min, n));
+    }
+
+    function getOptions() {
+      const size = clampInt(elSize.value, 128, 2048, 512);
+      const margin = clampInt(elMargin.value, 0, 16, 2);
+      return {
+        errorCorrectionLevel: elEcc.value,
+        width: size,
+        margin,
+        color: { dark: elDark.value, light: elLight.value }
+      };
+    }
+
+    function getText() {
+      return (elText.value || "").trim();
+    }
+
+    function updateInfo(text, opts) {
+      const bytes = new TextEncoder().encode(text).length;
+      info.innerHTML =
+        `<b>内容统计</b><br>` +
+        `字符数：${text.length}（UTF-8：${bytes} bytes）<br>` +
+        `纠错：${opts.errorCorrectionLevel}，尺寸：${opts.width}px，留白：${opts.margin}<br>` +
+        `输出：${elMode.value}`;
+    }
+
+    function updateEnv() {
+      const secure = window.isSecureContext;
+      const proto = location.protocol;
+      env.innerHTML =
+        `<b>环境提示</b><br>` +
+        `页面协议：<span class="mono">${proto}</span>（Clipboard/Share 通常需要 https 或 localhost）<br>` +
+        `安全上下文：${secure ? "是 ✅" : "否 ⚠️"}<br>` +
+        (qrLibReady ? `二维码库：已加载（<span class="mono">${escapeHtml(qrLibSource)}</span>）` : `二维码库：未就绪`);
+    }
+
+    function escapeHtml(s) {
+      return String(s).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+    }
+
+    // --- 依赖加载：本地优先 + 多 CDN 兜底 ---
+    function loadScript(src, timeoutMs = 7000) {
+      return new Promise((resolve, reject) => {
+        const s = document.createElement("script");
+        const t = setTimeout(() => {
+          s.remove();
+          reject(new Error("timeout: " + src));
+        }, timeoutMs);
+
+        s.src = src;
+        s.async = true;
+        s.onload = () => { clearTimeout(t); resolve(src); };
+        s.onerror = () => { clearTimeout(t); reject(new Error("failed: " + src)); };
+        document.head.appendChild(s);
+      });
+    }
+
+    async function ensureQRCodeLib() {
+      if (window.QRCode) {
+        qrLibReady = true;
+        return true;
+      }
+
+      const candidates = [
+        "./qrcode.min.js", // ✅ 离线最稳：同目录放这个文件
+        "https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js",
+        "https://unpkg.com/qrcode@1.5.1/build/qrcode.min.js",
+        "https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.1/qrcode.min.js",
+      ];
+
+      for (const src of candidates) {
+        try {
+          setStatus(`正在加载二维码库：${src}`);
+          await loadScript(src);
+          if (window.QRCode) {
+            qrLibReady = true;
+            qrLibSource = src;
+            setStatus("二维码库加载成功 ✅", "ok");
+            updateEnv();
+            return true;
+          }
+        } catch (e) {
+          // 尝试下一个
+        }
+      }
+
+      qrLibReady = false;
+      setStatus("二维码库加载失败：网络/CDN 被拦截或离线。建议把 qrcode.min.js 放到同目录离线使用。", "warn");
+      updateEnv();
+      return false;
+    }
+
+    function applyModeVisibility() {
+      const mode = elMode.value;
+      const showCanvas = (mode === "canvas" || mode === "both");
+      const showSvg = (mode === "svg" || mode === "both");
+      canvas.style.display = showCanvas ? "" : "none";
+      svgBox.style.display = showSvg ? "" : "none";
+    }
+
+    function setPlaceholderVisible(on) {
+      placeholder.style.display = on ? "" : "none";
+    }
+
+    function debounceRender() {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(render, 220);
+    }
+
+    function loadFromQuery() {
+      const u = new URL(location.href);
+      const t = u.searchParams.get("text");
+      if (t) elText.value = t;
+
+      const ecc = u.searchParams.get("ecc");
+      if (ecc) elEcc.value = ecc;
+
+      const size = u.searchParams.get("size");
+      if (size) elSize.value = size;
+
+      const margin = u.searchParams.get("margin");
+      if (margin) elMargin.value = margin;
+
+      const dark = u.searchParams.get("dark");
+      if (dark) elDark.value = dark;
+
+      const light = u.searchParams.get("light");
+      if (light) elLight.value = light;
+
+      const mode = u.searchParams.get("mode");
+      if (mode) elMode.value = mode;
+    }
+
+    function updateQueryParams(text, opts) {
+      try {
+        const u = new URL(location.href);
+        u.searchParams.set("text", text);
+        u.searchParams.set("ecc", opts.errorCorrectionLevel);
+        u.searchParams.set("size", String(opts.width));
+        u.searchParams.set("margin", String(opts.margin));
+        u.searchParams.set("dark", elDark.value);
+        u.searchParams.set("light", elLight.value);
+        u.searchParams.set("mode", elMode.value);
+        history.replaceState(null, "", u.toString());
+      } catch (e) {
+        // 某些极端环境可能不允许 replaceState（忽略即可）
+      }
+    }
+
+    async function render() {
+      applyModeVisibility();
+      setActionButtonsEnabled(false);
+
+      const ok = await ensureQRCodeLib();
+      if (!ok) {
+        setPlaceholderVisible(true);
+        return;
+      }
+
+      const text = getText();
+      const opts = getOptions();
+
+      // 清空输出
+      svgBox.innerHTML = "";
+      lastSvgText = "";
+
+      if (!text) {
+        // 空状态
+        const ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        setPlaceholderVisible(true);
+        info.textContent = "";
+        setStatus("请输入内容，然后点击“生成 / 更新”。");
+        return;
+      }
+
+      setPlaceholderVisible(false);
+      updateInfo(text, opts);
+
+      // 更新画布尺寸，避免拉伸
+      canvas.width = opts.width;
+      canvas.height = opts.width;
+
+      try {
+        const mode = elMode.value;
+
+        if (mode === "canvas" || mode === "both") {
+          await QRCode.toCanvas(canvas, text, opts);
+        } else {
+          // 只要 SVG 时，canvas 也画个小预览（防止一些按钮依赖 canvas 出错）
+          await QRCode.toCanvas(canvas, text, { ...opts, width: 256 });
+        }
+
+        if (mode === "svg" || mode === "both") {
+          lastSvgText = await QRCode.toString(text, { ...opts, type: "svg" });
+          svgBox.innerHTML = lastSvgText;
+        }
+
+        updateQueryParams(text, opts);
+        setActionButtonsEnabled(true);
+        setStatus("已生成 ✅（UTF-8：日语/中文/Emoji 均可）", "ok");
+      } catch (e) {
+        console.error(e);
+        setActionButtonsEnabled(false);
+        setPlaceholderVisible(true);
+        setStatus("生成失败：内容可能过长，或纠错等级太高。请缩短内容或把纠错改为 L/M。", "warn");
+      }
+    }
+
+    async function downloadBlob(blob, filename) {
+      const a = document.createElement("a");
+      const url = URL.createObjectURL(blob);
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    async function downloadPng() {
+      try {
+        const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
+        if (!blob) throw new Error("toBlob failed");
+        await downloadBlob(blob, "qr.png");
+      } catch (e) {
+        console.error(e);
+        setStatus("下载 PNG 失败：请先生成二维码。", "warn");
+      }
+    }
+
+    async function downloadSvg() {
+      try {
+        if (!lastSvgText) {
+          // 若当前没生成 SVG，则临时生成一次
+          const text = getText();
+          if (!text) throw new Error("no text");
+          lastSvgText = await QRCode.toString(text, { ...getOptions(), type: "svg" });
+        }
+        const blob = new Blob([lastSvgText], { type: "image/svg+xml;charset=utf-8" });
+        await downloadBlob(blob, "qr.svg");
+      } catch (e) {
+        console.error(e);
+        setStatus("下载 SVG 失败：请先生成二维码，或把输出切到 SVG/两者。", "warn");
+      }
+    }
+
+    async function copyImage() {
+      try {
+        if (!navigator.clipboard?.write) {
+          setStatus("复制失败：当前环境不支持复制图片。可用“下载 PNG”替代。", "warn");
+          return;
+        }
+        if (!window.isSecureContext) {
+          setStatus("复制失败：Clipboard API 通常需要 https/localhost。你可以下载 PNG 或把页面托管到 https。", "warn");
+          return;
+        }
+        const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
+        if (!blob) throw new Error("toBlob failed");
+        await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+        setStatus("已复制图片到剪贴板 ✅", "ok");
+      } catch (e) {
+        console.error(e);
+        setStatus("复制失败：浏览器限制或未生成二维码。", "warn");
+      }
+    }
+
+    async function copyLink() {
+      try {
+        const url = location.href;
+        if (navigator.clipboard?.writeText && window.isSecureContext) {
+          await navigator.clipboard.writeText(url);
+          setStatus("已复制分享链接 ✅", "ok");
+        } else {
+          // 退化：弹出提示让用户手动复制
+          prompt("复制下面的链接：", url);
+          setStatus("已弹出链接，请手动复制。", "");
+        }
+      } catch (e) {
+        console.error(e);
+        setStatus("复制链接失败：浏览器限制。", "warn");
+      }
+    }
+
+    async function share() {
+      try {
+        if (!navigator.share) {
+          setStatus("此设备/浏览器不支持系统分享。你可以复制链接或下载图片发送。", "warn");
+          return;
+        }
+        const text = getText();
+        if (!text) return;
+
+        const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
+        const file = blob ? new File([blob], "qr.png", { type: "image/png" }) : null;
+
+        await navigator.share({
+          title: "二维码",
+          text: "二维码内容：" + text,
+          files: file ? [file] : undefined,
+          url: location.href
+        });
+        setStatus("已打开系统分享 ✅", "ok");
+      } catch (e) {
+        // 用户取消分享也会抛异常，忽略即可
+      }
+    }
+
+    // --- 事件绑定 ---
+    btnGenerate.addEventListener("click", render);
+    btnDownloadPng.addEventListener("click", downloadPng);
+    btnDownloadSvg.addEventListener("click", downloadSvg);
+    btnCopyImg.addEventListener("click", copyImage);
+    btnCopyLink.addEventListener("click", copyLink);
+    btnShare.addEventListener("click", share);
+
+    btnClear.addEventListener("click", () => {
+      elText.value = "";
+      render();
+    });
+
+    // 输入变化自动更新（防抖）
+    [elText, elEcc, elSize, elMargin, elDark, elLight, elMode].forEach(el => {
+      el.addEventListener("input", debounceRender);
+      el.addEventListener("change", debounceRender);
+    });
+
+    // 示例 chips
+    document.querySelectorAll(".chip[data-sample]").forEach(chip => {
+      chip.addEventListener("click", () => {
+        elText.value = chip.getAttribute("data-sample") || "";
+        render();
+      });
+    });
+
+    // 启动
+    loadFromQuery();
+    applyModeVisibility();
+    updateEnv();
+    setStatus("初始化中：将尝试加载二维码库…");
+    ensureQRCodeLib().then(() => {
+      updateEnv();
+      render();
+    });
+  </script>
+</body>
+</html>
