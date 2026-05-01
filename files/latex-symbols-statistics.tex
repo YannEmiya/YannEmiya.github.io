@@ -2,6 +2,7 @@
 
 \usepackage[letterpaper,margin=0.65in]{geometry}
 \usepackage{amsmath,amssymb,mathtools,bm}
+\usepackage{mathrsfs}
 \usepackage{array,booktabs,longtable,multicol}
 \usepackage{xcolor}
 \usepackage[colorlinks=true,linkcolor=blue!45!black,urlcolor=blue!45!black]{hyperref}
@@ -38,6 +39,17 @@
   \endhead}
 {\bottomrule\end{longtable}}
 
+\newenvironment{styletable}
+{\small\begin{longtable}{
+  >{\raggedright\arraybackslash}p{0.31\linewidth}
+  >{\centering\arraybackslash}p{0.24\linewidth}
+  >{\raggedright\arraybackslash}p{0.37\linewidth}}
+  \toprule
+  \textbf{LaTeX input} & \textbf{Output} & \textbf{Common use / note}\\
+  \midrule
+  \endhead}
+{\bottomrule\end{longtable}}
+
 \title{\vspace{-2.5em}LaTeX Symbols for Statistics and Math}
 \author{A compact personal lookup sheet}
 \date{May 2026}
@@ -59,6 +71,7 @@ orders in probability, likelihood notation, and comparison symbols such as
 Most entries below work with the standard AMS packages:
 \begin{verbatim}
 \usepackage{amsmath,amssymb,mathtools,bm}
+\usepackage{mathrsfs} % for \mathscr
 \DeclareMathOperator{\Var}{Var}
 \DeclareMathOperator{\Cov}{Cov}
 \DeclareMathOperator{\diag}{diag}
@@ -68,6 +81,34 @@ Most entries below work with the standard AMS packages:
 \newcommand{\indep}{\mathrel{\perp\!\!\!\perp}}
 \newcommand{\dd}{\,\mathrm{d}}
 \end{verbatim}
+
+\section*{Other Styles (Math Mode Only)}
+
+These commands are useful when the visual style carries mathematical
+meaning.  Math alphabet commands usually affect only letters, digits, and
+uppercase Greek; use \code{\boldsymbol} or \code{\bm} when you need bold
+Greek letters or bold symbols.
+
+\begin{styletable}
+\code{\mathnormal{ABCxyz012}} & $\mathnormal{ABCxyz012}$ & Default math alphabet; variables and ordinary symbolic letters.\\
+\code{\mathrm{ABCxyz012}} & $\mathrm{ABCxyz012}$ & Upright Roman; constants, units, differential \(\mathrm{d}\), and short labels.\\
+\code{\mathit{ABCxyz012}} & $\mathit{ABCxyz012}$ & Text italic in math mode; useful for multi-letter italic labels.\\
+\code{\mathbf{ABCxyz012}} & $\mathbf{ABCxyz012}$ & Upright bold Latin letters and digits; common for vectors and matrices.\\
+\code{\boldsymbol{\alpha+\Sigma}} & $\boldsymbol{\alpha+\Sigma}$ & Bold Greek letters and math symbols; provided by AMS packages.\\
+\code{\bm{\alpha+\Sigma}} & $\bm{\alpha+\Sigma}$ & Robust bold math symbols; provided by the \code{bm} package.\\
+\code{\mathsf{ABCxyz012}} & $\mathsf{ABCxyz012}$ & Sans-serif math alphabet; sometimes used for random matrices or categories.\\
+\code{\mathtt{ABCxyz012}} & $\mathtt{ABCxyz012}$ & Typewriter math alphabet; useful for code-like labels.\\
+\code{\mathcal{ABC}} & $\mathcal{ABC}$ & Calligraphic uppercase letters; common for sigma fields, classes, and spaces.\\
+\code{\mathbb{RNQZC}} & $\mathbb{RNQZC}$ & Blackboard bold uppercase letters; number systems and probability \(\mathbb{P}\).\\
+\code{\mathfrak{gslABC}} & $\mathfrak{gslABC}$ & Fraktur/Gothic letters; algebras, ideals, and abstract structures.\\
+\code{\mathscr{FGL}} & $\mathscr{FGL}$ & Script uppercase letters; often used for filtrations and function classes.\\
+\code{\operatorname{logit}(p)} & $\operatorname{logit}(p)$ & Upright custom operator with correct operator spacing.\\
+\code{\text{if } x>0} & $\text{if } x>0$ & Text inside formulas; provided by \code{amsmath}.\\
+\code{\displaystyle \sum_{i=1}^n x_i} & $\displaystyle \sum_{i=1}^n x_i$ & Display style; larger operators and limits above/below.\\
+\code{\textstyle \sum_{i=1}^n x_i} & $\textstyle \sum_{i=1}^n x_i$ & Inline/text style; compact operators with side limits.\\
+\code{\scriptstyle x_i} & $\scriptstyle x_i$ & First-level subscript/superscript size.\\
+\code{\scriptscriptstyle x_i} & $\scriptscriptstyle x_i$ & Second-level nested subscript/superscript size.\\
+\end{styletable}
 
 \section*{Greek Letters and Variants}
 
