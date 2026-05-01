@@ -1,0 +1,294 @@
+\documentclass[10pt]{article}
+
+\usepackage[letterpaper,margin=0.65in]{geometry}
+\usepackage{amsmath,amssymb,mathtools,bm}
+\usepackage{array,booktabs,longtable,multicol}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,linkcolor=blue!45!black,urlcolor=blue!45!black]{hyperref}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.18}
+
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Corr}{Corr}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\se}{se}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\newcommand{\indep}{\mathrel{\perp\!\!\!\perp}}
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\code}[1]{\texttt{\detokenize{#1}}}
+\newcommand{\srow}[4]{$#1$ & \code{#2} & $#3$ & \code{#4}\\}
+
+\newenvironment{symtable}
+{\small\begin{longtable}{
+  >{\centering\arraybackslash}p{0.12\linewidth}
+  >{\raggedright\arraybackslash}p{0.34\linewidth}
+  >{\centering\arraybackslash}p{0.12\linewidth}
+  >{\raggedright\arraybackslash}p{0.34\linewidth}}
+  \toprule
+  \textbf{Symbol} & \textbf{LaTeX input} &
+  \textbf{Symbol} & \textbf{LaTeX input}\\
+  \midrule
+  \endhead}
+{\bottomrule\end{longtable}}
+
+\title{\vspace{-2.5em}LaTeX Symbols for Statistics and Math}
+\author{A compact personal lookup sheet}
+\date{May 2026}
+
+\begin{document}
+\maketitle
+\vspace{-1.3em}
+
+This note is a compact lookup sheet for symbols I commonly need in
+mathematics, probability, statistics, and asymptotic derivations.  It is
+inspired by the Rice LaTeX mathematical symbols handout at
+\url{https://www.cmor-faculty.rice.edu/~heinken/latex/symbols.pdf}, with
+extra emphasis on statistical notation such as stochastic convergence,
+orders in probability, likelihood notation, and comparison symbols such as
+\(\lesssim\) and \(\gtrsim\).
+
+\section*{Recommended Preamble}
+
+Most entries below work with the standard AMS packages:
+\begin{verbatim}
+\usepackage{amsmath,amssymb,mathtools,bm}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\newcommand{\indep}{\mathrel{\perp\!\!\!\perp}}
+\newcommand{\dd}{\,\mathrm{d}}
+\end{verbatim}
+
+\section*{Greek Letters and Variants}
+
+\begin{symtable}
+\srow{\alpha}{\alpha}{\beta}{\beta}
+\srow{\gamma}{\gamma}{\delta}{\delta}
+\srow{\epsilon}{\epsilon}{\varepsilon}{\varepsilon}
+\srow{\zeta}{\zeta}{\eta}{\eta}
+\srow{\theta}{\theta}{\vartheta}{\vartheta}
+\srow{\iota}{\iota}{\kappa}{\kappa}
+\srow{\lambda}{\lambda}{\mu}{\mu}
+\srow{\nu}{\nu}{\xi}{\xi}
+\srow{o}{o}{\pi}{\pi}
+\srow{\varpi}{\varpi}{\rho}{\rho}
+\srow{\varrho}{\varrho}{\sigma}{\sigma}
+\srow{\varsigma}{\varsigma}{\tau}{\tau}
+\srow{\upsilon}{\upsilon}{\phi}{\phi}
+\srow{\varphi}{\varphi}{\chi}{\chi}
+\srow{\psi}{\psi}{\omega}{\omega}
+\srow{\Gamma}{\Gamma}{\Delta}{\Delta}
+\srow{\Theta}{\Theta}{\Lambda}{\Lambda}
+\srow{\Xi}{\Xi}{\Pi}{\Pi}
+\srow{\Sigma}{\Sigma}{\Upsilon}{\Upsilon}
+\srow{\Phi}{\Phi}{\Psi}{\Psi}
+\srow{\Omega}{\Omega}{\digamma}{\digamma}
+\end{symtable}
+
+\section*{Relations, Comparisons, and Asymptotic Order}
+
+\begin{symtable}
+\srow{\le}{\le}{\ge}{\ge}
+\srow{\leq}{\leq}{\geq}{\geq}
+\srow{\leqslant}{\leqslant}{\geqslant}{\geqslant}
+\srow{\ll}{\ll}{\gg}{\gg}
+\srow{\lll}{\lll}{\ggg}{\ggg}
+\srow{\lesssim}{\lesssim}{\gtrsim}{\gtrsim}
+\srow{\lessapprox}{\lessapprox}{\gtrapprox}{\gtrapprox}
+\srow{\preceq}{\preceq}{\succeq}{\succeq}
+\srow{\precsim}{\precsim}{\succsim}{\succsim}
+\srow{\prec}{\prec}{\succ}{\succ}
+\srow{\sim}{\sim}{\nsim}{\nsim}
+\srow{\simeq}{\simeq}{\backsimeq}{\backsimeq}
+\srow{\approx}{\approx}{\thickapprox}{\thickapprox}
+\srow{\asymp}{\asymp}{\eqsim}{\eqsim}
+\srow{\equiv}{\equiv}{\cong}{\cong}
+\srow{\propto}{\propto}{\doteq}{\doteq}
+\srow{\coloneqq}{\coloneqq}{\eqqcolon}{\eqqcolon}
+\srow{\triangleq}{\triangleq}{\overset{\Delta}{=}}{\overset{\Delta}{=}}
+\srow{a_n = O(b_n)}{a_n = O(b_n)}{a_n = o(b_n)}{a_n = o(b_n)}
+\srow{X_n = O_p(a_n)}{X_n = O_p(a_n)}{X_n = o_p(a_n)}{X_n = o_p(a_n)}
+\srow{a_n \asymp b_n}{a_n \asymp b_n}{a_n \lesssim b_n}{a_n \lesssim b_n}
+\end{symtable}
+
+\section*{Negated Relations}
+
+\begin{symtable}
+\srow{\neq}{\neq}{\not\equiv}{\not\equiv}
+\srow{\nless}{\nless}{\ngtr}{\ngtr}
+\srow{\nleq}{\nleq}{\ngeq}{\ngeq}
+\srow{\nleqslant}{\nleqslant}{\ngeqslant}{\ngeqslant}
+\srow{\npreceq}{\npreceq}{\nsucceq}{\nsucceq}
+\srow{\nprec}{\nprec}{\nsucc}{\nsucc}
+\srow{\not\sim}{\not\sim}{\not\approx}{\not\approx}
+\srow{\notin}{\notin}{\nsubseteq}{\nsubseteq}
+\srow{\nsupseteq}{\nsupseteq}{\nmid}{\nmid}
+\end{symtable}
+
+\section*{Set Theory and Logic}
+
+\begin{symtable}
+\srow{\in}{\in}{\ni}{\ni}
+\srow{\subset}{\subset}{\supset}{\supset}
+\srow{\subseteq}{\subseteq}{\supseteq}{\supseteq}
+\srow{\subsetneq}{\subsetneq}{\supsetneq}{\supsetneq}
+\srow{\varsubsetneq}{\varsubsetneq}{\varsupsetneq}{\varsupsetneq}
+\srow{\cup}{\cup}{\cap}{\cap}
+\srow{\bigcup_{i=1}^n A_i}{\bigcup_{i=1}^n A_i}{\bigcap_{i=1}^n A_i}{\bigcap_{i=1}^n A_i}
+\srow{\setminus}{\setminus}{\complement}{\complement}
+\srow{\emptyset}{\emptyset}{\varnothing}{\varnothing}
+\srow{\mathbb{N}}{\mathbb{N}}{\mathbb{Z}}{\mathbb{Z}}
+\srow{\mathbb{Q}}{\mathbb{Q}}{\mathbb{R}}{\mathbb{R}}
+\srow{\mathbb{C}}{\mathbb{C}}{\mathcal{A}}{\mathcal{A}}
+\srow{\forall}{\forall}{\exists}{\exists}
+\srow{\nexists}{\nexists}{\neg}{\neg}
+\srow{\land}{\land}{\lor}{\lor}
+\srow{\implies}{\implies}{\iff}{\iff}
+\srow{\therefore}{\therefore}{\because}{\because}
+\end{symtable}
+
+\section*{Probability and Statistics}
+
+\begin{symtable}
+\srow{\mathbb{P}(A)}{\mathbb{P}(A)}{\Pr(A)}{\Pr(A)}
+\srow{\mathbb{E}[X]}{\mathbb{E}[X]}{\Var(X)}{\Var(X)}
+\srow{\Cov(X,Y)}{\Cov(X,Y)}{\Corr(X,Y)}{\Corr(X,Y)}
+\srow{\mathbf{1}_{\{X>0\}}}{\mathbf{1}_{\{X>0\}}}{X \indep Y}{X \indep Y}
+\srow{X \sim F}{X \sim F}{X \sim \mathcal{N}(\mu,\sigma^2)}{X \sim \mathcal{N}(\mu,\sigma^2)}
+\srow{X \sim \mathrm{Bernoulli}(p)}{X \sim \mathrm{Bernoulli}(p)}{X \sim \mathrm{Binomial}(n,p)}{X \sim \mathrm{Binomial}(n,p)}
+\srow{X \sim \mathrm{Poisson}(\lambda)}{X \sim \mathrm{Poisson}(\lambda)}{X \sim \chi^2_k}{X \sim \chi^2_k}
+\srow{X_n \xrightarrow{p} X}{X_n \xrightarrow{p} X}{X_n \xrightarrow{d} X}{X_n \xrightarrow{d} X}
+\srow{X_n \xrightarrow{a.s.} X}{X_n \xrightarrow{a.s.} X}{X_n \overset{L^2}{\longrightarrow} X}{X_n \overset{L^2}{\longrightarrow} X}
+\srow{X_n \rightsquigarrow X}{X_n \rightsquigarrow X}{X_n \overset{d}{=} Y_n}{X_n \overset{d}{=} Y_n}
+\srow{\hat{\theta}}{\hat{\theta}}{\widehat{\theta}}{\widehat{\theta}}
+\srow{\tilde{\theta}}{\tilde{\theta}}{\bar{X}_n}{\bar{X}_n}
+\srow{\ell(\theta)}{\ell(\theta)}{\dot{\ell}(\theta)}{\dot{\ell}(\theta)}
+\srow{\ddot{\ell}(\theta)}{\ddot{\ell}(\theta)}{\mathcal{I}(\theta)}{\mathcal{I}(\theta)}
+\srow{\hat{\theta}_{\mathrm{MLE}}}{\hat{\theta}_{\mathrm{MLE}}}{\se(\hat{\theta})}{\se(\hat{\theta})}
+\srow{\argmax_{\theta\in\Theta}\ell(\theta)}{\argmax_{\theta\in\Theta}\ell(\theta)}{\argmin_{\theta\in\Theta} L(\theta)}{\argmin_{\theta\in\Theta} L(\theta)}
+\end{symtable}
+
+\section*{Linear Algebra}
+
+\begin{symtable}
+\srow{\mathbf{x}}{\mathbf{x}}{\bm{\beta}}{\bm{\beta}}
+\srow{\boldsymbol{\Sigma}}{\boldsymbol{\Sigma}}{\mathsf{X}}{\mathsf{X}}
+\srow{x^\top y}{x^\top y}{A^{-1}}{A^{-1}}
+\srow{A^\dagger}{A^\dagger}{A^{1/2}}{A^{1/2}}
+\srow{\|x\|}{\|x\|}{\lVert x\rVert_2}{\lVert x\rVert_2}
+\srow{\langle x,y\rangle}{\langle x,y\rangle}{x \otimes y}{x \otimes y}
+\srow{x \oplus y}{x \oplus y}{A \odot B}{A \odot B}
+\srow{\det(A)}{\det(A)}{\tr(A)}{\tr(A)}
+\srow{\rank(A)}{\rank(A)}{\diag(a_1,\ldots,a_n)}{\diag(a_1,\ldots,a_n)}
+\srow{\lambda_{\max}(A)}{\lambda_{\max}(A)}{\lambda_{\min}(A)}{\lambda_{\min}(A)}
+\srow{A \succeq 0}{A \succeq 0}{A \succ 0}{A \succ 0}
+\srow{\begin{bmatrix}a&b\\c&d\end{bmatrix}}{\begin{bmatrix}a&b\\c&d\end{bmatrix}}{\begin{pmatrix}a\\b\end{pmatrix}}{\begin{pmatrix}a\\b\end{pmatrix}}
+\end{symtable}
+
+\section*{Calculus, Sums, and Integrals}
+
+\begin{symtable}
+\srow{\partial}{\partial}{\nabla}{\nabla}
+\srow{\nabla_\theta f(\theta)}{\nabla_\theta f(\theta)}{\nabla^2_\theta f(\theta)}{\nabla^2_\theta f(\theta)}
+\srow{\frac{\partial f}{\partial x}}{\frac{\partial f}{\partial x}}{\frac{\partial^2 f}{\partial x\,\partial y}}{\frac{\partial^2 f}{\partial x\,\partial y}}
+\srow{\dot{x}}{\dot{x}}{\ddot{x}}{\ddot{x}}
+\srow{\sum_{i=1}^n x_i}{\sum_{i=1}^n x_i}{\prod_{i=1}^n x_i}{\prod_{i=1}^n x_i}
+\srow{\int_a^b f(x)\dd x}{\int_a^b f(x)\dd x}{\iint_D f(x,y)\dd x\dd y}{\iint_D f(x,y)\dd x\dd y}
+\srow{\lim_{n\to\infty} a_n}{\lim_{n\to\infty} a_n}{\limsup_{n\to\infty} a_n}{\limsup_{n\to\infty} a_n}
+\srow{\liminf_{n\to\infty} a_n}{\liminf_{n\to\infty} a_n}{\sup_{x\in A} f(x)}{\sup_{x\in A} f(x)}
+\srow{\inf_{x\in A} f(x)}{\inf_{x\in A} f(x)}{\max_{x\in A} f(x)}{\max_{x\in A} f(x)}
+\srow{\min_{x\in A} f(x)}{\min_{x\in A} f(x)}{\operatorname*{ess\,sup} X}{\operatorname*{ess\,sup} X}
+\end{symtable}
+
+\section*{Arrows and Maps}
+
+\begin{symtable}
+\srow{\leftarrow}{\leftarrow}{\rightarrow}{\rightarrow}
+\srow{\longleftarrow}{\longleftarrow}{\longrightarrow}{\longrightarrow}
+\srow{\Leftarrow}{\Leftarrow}{\Rightarrow}{\Rightarrow}
+\srow{\Longleftarrow}{\Longleftarrow}{\Longrightarrow}{\Longrightarrow}
+\srow{\leftrightarrow}{\leftrightarrow}{\Leftrightarrow}{\Leftrightarrow}
+\srow{\longleftrightarrow}{\longleftrightarrow}{\Longleftrightarrow}{\Longleftrightarrow}
+\srow{\mapsto}{\mapsto}{\longmapsto}{\longmapsto}
+\srow{\uparrow}{\uparrow}{\downarrow}{\downarrow}
+\srow{\nearrow}{\nearrow}{\searrow}{\searrow}
+\srow{\swarrow}{\swarrow}{\nwarrow}{\nwarrow}
+\srow{\hookrightarrow}{\hookrightarrow}{\hookleftarrow}{\hookleftarrow}
+\srow{\rightharpoonup}{\rightharpoonup}{\leftharpoonup}{\leftharpoonup}
+\srow{\rightleftharpoons}{\rightleftharpoons}{\leftrightharpoons}{\leftrightharpoons}
+\srow{\leadsto}{\leadsto}{\rightsquigarrow}{\rightsquigarrow}
+\srow{\xrightarrow{p}}{\xrightarrow{p}}{\xleftarrow{d}}{\xleftarrow{d}}
+\end{symtable}
+
+\section*{Binary Operators}
+
+\begin{symtable}
+\srow{\pm}{\pm}{\mp}{\mp}
+\srow{\times}{\times}{\div}{\div}
+\srow{\cdot}{\cdot}{\ast}{\ast}
+\srow{\star}{\star}{\circ}{\circ}
+\srow{\bullet}{\bullet}{\diamond}{\diamond}
+\srow{\oplus}{\oplus}{\ominus}{\ominus}
+\srow{\otimes}{\otimes}{\oslash}{\oslash}
+\srow{\odot}{\odot}{\bigoplus}{\bigoplus}
+\srow{\bigotimes}{\bigotimes}{\wedge}{\wedge}
+\srow{\vee}{\vee}{\cap}{\cap}
+\srow{\cup}{\cup}{\sqcap}{\sqcap}
+\srow{\sqcup}{\sqcup}{\setminus}{\setminus}
+\end{symtable}
+
+\section*{Delimiters and Brackets}
+
+\begin{symtable}
+\srow{(x)}{(x)}{[x]}{[x]}
+\srow{\{x\}}{\{x\}}{\langle x\rangle}{\langle x\rangle}
+\srow{|x|}{|x|}{\|x\|}{\|x\|}
+\srow{\lfloor x\rfloor}{\lfloor x\rfloor}{\lceil x\rceil}{\lceil x\rceil}
+\srow{\left(\frac{a}{b}\right)}{\left(\frac{a}{b}\right)}{\left\{x: x>0\right\}}{\left\{x: x>0\right\}}
+\srow{\bigl( x \bigr)}{\bigl( x \bigr)}{\Bigl( x \Bigr)}{\Bigl( x \Bigr)}
+\srow{\biggl( x \biggr)}{\biggl( x \biggr)}{\left[ x \right]}{\left[ x \right]}
+\end{symtable}
+
+\section*{Accents, Decorations, and Fonts}
+
+\begin{symtable}
+\srow{\hat{x}}{\hat{x}}{\widehat{XYZ}}{\widehat{XYZ}}
+\srow{\bar{x}}{\bar{x}}{\overline{XYZ}}{\overline{XYZ}}
+\srow{\tilde{x}}{\tilde{x}}{\widetilde{XYZ}}{\widetilde{XYZ}}
+\srow{\vec{x}}{\vec{x}}{\dot{x}}{\dot{x}}
+\srow{\ddot{x}}{\ddot{x}}{\breve{x}}{\breve{x}}
+\srow{\check{x}}{\check{x}}{\acute{x}}{\acute{x}}
+\srow{\grave{x}}{\grave{x}}{\mathbb{R}}{\mathbb{R}}
+\srow{\mathcal{F}}{\mathcal{F}}{\mathfrak{g}}{\mathfrak{g}}
+\srow{\mathbf{x}}{\mathbf{x}}{\mathrm{d}}{\mathrm{d}}
+\srow{\mathsf{X}}{\mathsf{X}}{\mathtt{x}}{\mathtt{x}}
+\srow{\bm{\theta}}{\bm{\theta}}{\boldsymbol{\Omega}}{\boldsymbol{\Omega}}
+\end{symtable}
+
+\section*{Miscellaneous Symbols}
+
+\begin{symtable}
+\srow{\infty}{\infty}{\partial}{\partial}
+\srow{\nabla}{\nabla}{\hbar}{\hbar}
+\srow{\ell}{\ell}{\wp}{\wp}
+\srow{\Re}{\Re}{\Im}{\Im}
+\srow{\angle}{\angle}{\measuredangle}{\measuredangle}
+\srow{\triangle}{\triangle}{\square}{\square}
+\srow{\lozenge}{\lozenge}{\Diamond}{\Diamond}
+\srow{\star}{\star}{\bigstar}{\bigstar}
+\srow{\top}{\top}{\bot}{\bot}
+\srow{\vdots}{\vdots}{\ddots}{\ddots}
+\srow{\cdots}{\cdots}{\ldots}{\ldots}
+\end{symtable}
+
+\end{document}
